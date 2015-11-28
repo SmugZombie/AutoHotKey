@@ -1,5 +1,5 @@
-;DimScreen.ahk
-; Dim the screen via the tray icon
+; Smugdev DimScreen.ahk
+; github.com/SmugZombie
 
 #SingleInstance,Force
 #NoEnv
