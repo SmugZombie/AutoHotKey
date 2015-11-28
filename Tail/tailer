@@ -1,0 +1,4 @@
+[CONFIG]
+File=C:\testfile.txt
+NumOfLines=17
+BlankLines=0
