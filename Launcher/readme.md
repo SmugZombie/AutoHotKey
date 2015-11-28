@@ -1,0 +1,1 @@
+Launcher.ahk is a simple script which runs specified tasks upon startup / logon of the computer.

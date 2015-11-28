@@ -1,0 +1,1 @@
+Logitech Keys.ahk is a simple script which remaps the keys of a K750 keyboard that is not the "American" key set to widen the left shift and enter keys.
