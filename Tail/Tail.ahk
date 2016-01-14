@@ -1,3 +1,6 @@
+# Tail.ahk
+# github.com/smugzombie
+# Version 2
 If not A_IsAdmin { ; Runs script as Administrator for UAC in Windows Vista and 7+
     Run *RunAs "%A_ScriptFullPath%"
 }
@@ -19,6 +22,7 @@ Gui, Menu, MyMenuBar
 Gui, +Resize  ; Make the window resizable.
 Gui, Add, Edit, vMainEdit WantTab W600 R20 readonly
 Gui, Show,, Ossec Tail
+
 
 Tail(k,file)   ; Return the last k lines of file
 {
@@ -52,6 +56,7 @@ GuiClose:  ; User closed the window.
 ExitApp
 
 ChangeFile:
-InputBox, File, Tailer, What filename do you wish to tail?, , , , , , ,
+;InputBox, File, Tailer, What filename do you wish to tail?, , , , , , ,
+FileSelectFile, File, 3, , Open a file, Text Documents (*.txt; *.doc)
 IniWrite, %File%, %A_ScriptDir%\tailer.ini, CONFIG, File
 return
