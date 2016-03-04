@@ -1,9 +1,10 @@
 #SingleInstance, force
-#Include, WebRequests.ahk
+#Include, Includes/WebRequests.ahk
 ; Spotlight for Windows
 ; WIP
 ; Ron Egli - github.com/smugzombie
-; Version 0.0.1
+; Version 0.0.2
+
 
 ibc_gui_background_color = 66CCFF
 ibc_input_gui_number = 45
