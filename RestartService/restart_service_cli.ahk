@@ -1,6 +1,7 @@
 ; restartService.ahk / .exe 
 ; Restarts windows service on command
 ; Accepts 1 argument - The service name
+; Version 0.1
 
 service = %1%
 
