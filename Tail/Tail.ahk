@@ -17,6 +17,8 @@ IniRead, BlankLines, %A_ScriptDir%\tailer.ini, CONFIG, BlankLines, 0
 Menu, FileMenu, Add, Change &File, ChangeFile
 Menu, FileMenu, Add, Always On &Top, AlwaysOnTop
 Menu, FileMenu, Add,
+Menu, FileMenu, Add, &Reload, Reload
+Menu, FileMenu, Add,
 Menu, FileMenu, Add, E&xit, FileExit
 Menu, MyMenuBar, Add, &File, :FileMenu
 Gui, Menu, MyMenuBar
@@ -64,4 +66,8 @@ return
 
 AlwaysOnTop:
 WinSet, AlwaysOnTop, Toggle, A
+return
+
+Reload:
+reload
 return
