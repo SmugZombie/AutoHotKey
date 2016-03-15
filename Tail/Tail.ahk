@@ -1,6 +1,6 @@
 # Tail.ahk
 # github.com/smugzombie
-# Version 2
+# Version 2.1
 If not A_IsAdmin { ; Runs script as Administrator for UAC in Windows Vista and 7+
     Run *RunAs "%A_ScriptFullPath%"
 }
@@ -15,6 +15,7 @@ IniRead, NumOfLines, %A_ScriptDir%\tailer.ini, CONFIG, NumOfLines, 20
 IniRead, BlankLines, %A_ScriptDir%\tailer.ini, CONFIG, BlankLines, 0
 
 Menu, FileMenu, Add, Change &File, ChangeFile
+Menu, FileMenu, Add, Always On &Top, AlwaysOnTop
 Menu, FileMenu, Add,
 Menu, FileMenu, Add, E&xit, FileExit
 Menu, MyMenuBar, Add, &File, :FileMenu
@@ -59,4 +60,8 @@ ChangeFile:
 ;InputBox, File, Tailer, What filename do you wish to tail?, , , , , , ,
 FileSelectFile, File, 3, , Open a file, Text Documents (*.txt; *.doc)
 IniWrite, %File%, %A_ScriptDir%\tailer.ini, CONFIG, File
+return
+
+AlwaysOnTop:
+WinSet, AlwaysOnTop, Toggle, A
 return
