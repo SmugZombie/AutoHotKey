@@ -1,6 +1,7 @@
 # Tail.ahk
 # github.com/smugzombie
-# Version 2.1
+# Version 2.2
+
 If not A_IsAdmin { ; Runs script as Administrator for UAC in Windows Vista and 7+
     Run *RunAs "%A_ScriptFullPath%"
 }
@@ -13,9 +14,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 IniRead, File, %A_ScriptDir%\tailer.ini, CONFIG, File, C:\Windows\win.ini
 IniRead, NumOfLines, %A_ScriptDir%\tailer.ini, CONFIG, NumOfLines, 20
 IniRead, BlankLines, %A_ScriptDir%\tailer.ini, CONFIG, BlankLines, 0
+AOT = 0
 
 Menu, FileMenu, Add, Change &File, ChangeFile
 Menu, FileMenu, Add, Always On &Top, AlwaysOnTop
+Menu, FileMenu, Add, &Settings, Settings
 Menu, FileMenu, Add,
 Menu, FileMenu, Add, &Reload, Reload
 Menu, FileMenu, Add,
@@ -24,8 +27,12 @@ Menu, MyMenuBar, Add, &File, :FileMenu
 Gui, Menu, MyMenuBar
 Gui, +Resize  ; Make the window resizable.
 Gui, Add, Edit, vMainEdit WantTab W600 R20 readonly
-Gui, Show,, Ossec Tail
+Gui, Show,, Tailer
 
+Gui,2: Add, Text,, Tail how many lines?
+Gui,2: Add, Edit, x45 vNumOfLines, %NumOfLines%
+Gui,2: Add, Button, x20 y155 gCloseSettings, Close
+Gui,2: Add, Button, x65 y155 gSaveSettings, Save
 
 Tail(k,file)   ; Return the last k lines of file
 {
@@ -65,9 +72,32 @@ IniWrite, %File%, %A_ScriptDir%\tailer.ini, CONFIG, File
 return
 
 AlwaysOnTop:
+ 
+if(AOT == 0)
+{
+   AOT = 1
+   Menu %A_ThisMenu%, Check, %A_ThisMenuItem%
+}
+Else{
+   AOT = 0
+   Menu %A_ThisMenu%, Uncheck, %A_ThisMenuItem%
+}
 WinSet, AlwaysOnTop, Toggle, A
 return
 
 Reload:
 reload
+return
+
+Settings:
+gui, 2: show
+return
+
+SaveSettings:
+gui, 2: Submit
+IniWrite, %NumOfLines%, %A_ScriptDir%\tailer.ini, CONFIG, NumOfLines
+return
+
+CloseSettings:
+gui, 2: hide
 return
