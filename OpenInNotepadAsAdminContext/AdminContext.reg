@@ -3,4 +3,4 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\*\shell\Open with Notepad (as Admin)]
 
 [HKEY_CLASSES_ROOT\*\shell\Open with Notepad (as Admin)\command]
-@="C:\\NotepadAsAdmin.exe %1"
+@="C:\\NotepadAsAdmin.exe \"%1\""
