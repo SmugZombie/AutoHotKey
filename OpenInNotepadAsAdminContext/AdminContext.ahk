@@ -4,17 +4,11 @@
 
 #NoEnv 
 SendMode Input
-
-Loop %0%  ; For each parameter (or file dropped onto a script):
-{
-    GivenPath := %A_Index%  ; Fetch the contents of the variable whose name is contained in A_Index.
-    Loop %GivenPath%, 1
-        LongPath = %A_LoopFileLongPath%
-}
+input = %1%
 
 If not A_IsAdmin {
-    Run *RunAs Notepad.exe "%GivenPath%"
+    Run *RunAs Notepad.exe %input%
 }
 else {
-	Run Notepad.exe "%GivenPath%"
+	Run Notepad.exe %input%
 }
