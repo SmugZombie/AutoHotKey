@@ -1,13 +1,13 @@
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
 #SingleInstance, force
 #Include WinRun.ahk
 
-AUTHOR := "Ron Egli"
-AUTHOR_URL := "github.com/smugzombie"
 APP_NAME := "SSIDKey"
-VERSION := "1.0"
+VERSION := "1.1"
 TAG_LINE := "Key Viewer"
 
 Menu, tray, NoStandard
@@ -55,8 +55,12 @@ reload
 return
 
 About:
+
+
+
 Gui 2: -Resize -MinimizeBox -MaximizeBox
 Gui 2: Show, h190 w350, %APP_NAME% %VERSION% - About
+
 return
 
 getStatus(){
@@ -66,9 +70,13 @@ getStatus(){
 	{
 		return 0
 	}
-	Else
+	Else IfInString, current_status, connected
 	{
 		return 1
+	}
+	Else
+	{
+		return 0
 	}
 }
 
@@ -89,8 +97,8 @@ getCurrentProfile(){
 		getKey()
 	}
 	else{
-		SSID = Not Connected
-		KEY = 
+		SSID := "Not Connected To Wifi"
+		KEY := ""
 	}
 	return
 }
