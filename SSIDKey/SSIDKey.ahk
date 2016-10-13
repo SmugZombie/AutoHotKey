@@ -7,7 +7,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include WinRun.ahk
 
 APP_NAME := "SSIDKey"
-VERSION := "1.1"
+VERSION := "1.2"
 TAG_LINE := "Key Viewer"
 
 Menu, tray, NoStandard
@@ -94,6 +94,18 @@ getCurrentProfile(){
 			}
 		}
 		SSID := output
+		Loop, parse, current_status, `n, `r
+		{
+			removethis := "    Profile                :"
+			IfInString, A_LoopField, %removethis%
+			{
+				output :=  A_LoopField
+				
+				StringReplace, output, output, %removethis%, , All
+			}
+		}
+		PROFILE := output
+
 		getKey()
 	}
 	else{
@@ -105,7 +117,7 @@ getCurrentProfile(){
 
 getKey(){
 	global
-	command = netsh.exe wlan show profiles name=TVRMS key=clear
+	command = netsh.exe wlan show profiles name="%SSID%" key=clear
 	result := CMDRun(command)
 
 	Loop, parse, result, `n, `r
