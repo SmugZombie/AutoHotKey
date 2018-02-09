@@ -2,7 +2,7 @@
 ;       NetCheck
 ;       Smug Dev
 ;       http://smugzombie.com
-;		    2018
+;		2013
 ; ######################################
 #NoEnv
 #Persistent
@@ -10,16 +10,25 @@
 SendMode Input
 SetWorkingDir %A_ScriptDir%
 
+app_name = NetCheck
+version = v0.2
+
 Menu, tray, NoStandard
-Menu, tray, add, About, AboutMe
+
+Menu, Logs, Add, View Logs, ViewLogs
+Menu, Logs, Add, Rotate Logs, RotateLogs
+
+Menu, tray, add, %app_name% %version%, AboutMe
 Menu, tray, add, Reload, Reloadit
 Menu, tray, add,
-Menu, tray, add, &Exit, terminate
+Menu, tray, add, Logging, :Logs
+Menu, tray, add,
+Menu, tray, add, Shutdown, terminate
 
 
 url = http://digdns.com/ip/
-externalIp = ""
-prevExternalIp = ""
+externalIp =
+prevExternalIp =
 configuration = %A_ScriptDir%\config.ini
 output = %A_ScriptDir%\netcheck.log
 IniRead, prevExternalIp, %configuration%, Latest, external_ip, ""
@@ -78,8 +87,25 @@ AboutMe:
 	return
 }
 
+ViewLogs:
+{
+	Run C:\Windows\Notepad.exe %output%
+	return
+}
+
+RotateLogs:
+{
+	IfExist, %output%.1
+	{
+		FileDelete, %output%.1
+	}
+	FileMove, %output%, %output%.1
+	FileAppend, , %output%
+	return
+}
+
 About_Dialog:
-	QUESTION = This application was created quickly to keep a log of a local internet connection.
+	QUESTION = This application was created quickly to keep a log of a change to external IP.
 	MESSAGE_BODY = This app checks the current external IP every 60 seconds and alerts upon changes. `nIncluding logging when changes occur.
 	LINK_TEXT = <A>Visit Developers Other Projects</A>
 
