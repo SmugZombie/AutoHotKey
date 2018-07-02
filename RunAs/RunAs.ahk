@@ -5,11 +5,10 @@
 
 ; Ron Egli - Github.com
 ; Run As - Just a simple applet that allows me to quickly launch administrative tools
-; Version 1.1
 
 SetWorkingDir %A_ScriptDir%
 CONFIGFILE := "runas_config.ini"
-version = 1.0
+version = 1.2
 
 If not A_IsAdmin { ; Runs script as Administrator for UAC in Windows Vista and 7+
     try {
@@ -43,13 +42,14 @@ WM_RBUTTONDOWN(wParam, lParam)
 }
 
 ; Define Menus - Rough, will add user configurable later
-menu, AppMenu, add, Notepad, Notepad
+menu, AppMenu, add, Notepad (Blank), Notepad
 menu, AppMenu, add, Notepad (Copied Path), Notepad2
 menu, AppMenu, add, Notepad (Chooser), Notepad3
 menu, AppMenu, add, CMD, Cmd
 menu, AppMenu, add, Powershell
 menu, AppMenu, add, Edit Hosts, Hosts
 menu, AppMenu, add,
+menu, AppMenu, add, RunAs Clipboard, RunAsClipboard
 menu, AppMenu, add, Pick a File, chooser
 
 menu, MainMenu, add, RunAs, :AppMenu
@@ -124,6 +124,10 @@ return
 
 Powershell:
 Run, Powershell.exe
+return
+
+RunAsClipboard:
+Run, %Clipboard%
 return
 
 chooser:
