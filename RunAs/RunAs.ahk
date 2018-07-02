@@ -5,7 +5,7 @@
 
 ; Ron Egli - Github.com
 ; Run As - Just a simple applet that allows me to quickly launch administrative tools
-; Version 1.0
+; Version 1.1
 
 SetWorkingDir %A_ScriptDir%
 CONFIGFILE := "runas_config.ini"
@@ -45,9 +45,12 @@ WM_RBUTTONDOWN(wParam, lParam)
 ; Define Menus - Rough, will add user configurable later
 menu, AppMenu, add, Notepad, Notepad
 menu, AppMenu, add, Notepad (Copied Path), Notepad2
+menu, AppMenu, add, Notepad (Chooser), Notepad3
 menu, AppMenu, add, CMD, Cmd
 menu, AppMenu, add, Powershell
 menu, AppMenu, add, Edit Hosts, Hosts
+menu, AppMenu, add,
+menu, AppMenu, add, Pick a File, chooser
 
 menu, MainMenu, add, RunAs, :AppMenu
 menu, MainMenu, add,
@@ -103,6 +106,14 @@ Notepad2:
 Run, Notepad.exe %Clipboard%
 return
 
+Notepad3:
+FileSelectFile, SelectedFile, 3, , Open a file
+if SelectedFile =
+    return
+else
+    Run, Notepad.exe %SelectedFile%
+return
+
 Hosts:
 Run, Notepad.exe C:\Windows\System32\drivers\etc\hosts
 return
@@ -113,6 +124,14 @@ return
 
 Powershell:
 Run, Powershell.exe
+return
+
+chooser:
+FileSelectFile, SelectedFile, 3, , Open a file
+if SelectedFile =
+    return
+else
+    Run, %SelectedFile%
 return
 
 
